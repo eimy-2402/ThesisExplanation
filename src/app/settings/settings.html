@@ -1,0 +1,38 @@
+<button class="btn btn-ghost btn-circle" aria-label="Settings" (click)="dialog.showModal()">
+  <span class="icon-[tabler--settings] size-6"></span>
+</button>
+
+<dialog #dialog class="modal">
+  <div class="modal-box max-w-xs">
+    <h3 class="mb-3 font-bold">Settings</h3>
+
+    <label class="block mb-2">
+      Font
+      <select class="select select-sm w-full" [ngModel]="store.font()" (ngModelChange)="changeFont($event)">
+        @for (font of fonts; track font) {
+          <option [ngValue]="font">{{ font }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="block mb-4">
+      Text size
+      <select
+        class="select select-sm w-full"
+        [ngModel]="store.fontSize()"
+        (ngModelChange)="changeFontSize($event)"
+      >
+        @for (size of fontSizes; track size) {
+          <option [ngValue]="size">{{ size }}px</option>
+        }
+      </select>
+    </label>
+
+    <form method="dialog">
+      <button class="btn btn-sm w-full">Close</button>
+    </form>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

@@ -1,0 +1,54 @@
+<h2 class="font-bold mb-2">What is done so far</h2>
+<p>
+  I ran a pilot experiment to see whether a graph helps the search, compared with plain search and
+  with a two-step search that uses no graph. I used 200 questions from 2WikiMultiHopQA and 1,485
+  Wikipedia paragraphs. To build the graph, gpt-5-mini extracted 10,765 triples, where each triple
+  connects two names through a link. Each method then passed its top 5 paragraphs to gpt-4o-mini,
+  which wrote the answer.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Retrieval method</th>
+      <th>Recall&#64;5, %</th>
+      <th>F1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Plain search with keywords, meaning and reranking</td>
+      <td>74.6</td>
+      <td>41.1</td>
+    </tr>
+    <tr>
+      <td>Two-step search without a graph</td>
+      <td>78.1</td>
+      <td>44.2</td>
+    </tr>
+    <tr>
+      <td>Graph search with QASA</td>
+      <td>73.8</td>
+      <td>45.4</td>
+    </tr>
+    <tr>
+      <td>Plain search combined with QASA</td>
+      <td>79.8</td>
+      <td>45.9</td>
+    </tr>
+  </tbody>
+</table>
+<ul>
+  <li>Adding QASA to plain search raised recall from 74.6% to 79.8%.</li>
+  <li>
+    However, the two-step search without a graph already reached 78.1%. The gap between it and the
+    combined method is within the uncertainty, because its 95% interval crosses zero, so I cannot
+    claim that the graph does better than simply searching again. The differences in answer F1 are
+    also within the uncertainty.
+  </li>
+  <li>
+    I also built a graph only from the paragraphs that had helped on one half of the questions. On
+    the other half, this graph did worse than the full graph, and it showed no stable advantage over
+    picking central or random paragraphs. Because of this result, I now focus on predicting how
+    useful a piece will be.
+  </li>
+</ul>

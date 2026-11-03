@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram id="overall-problem" name="Overall problem">
+    <mxGraphModel background="#ffffff" dx="-514" dy="-132" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="1000" pageHeight="460" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="q" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Multi-hop question&lt;br&gt;Where was the director of the film «Inception» born?" vertex="1">
+          <mxGeometry height="100" width="190" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="l1a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Basic RAG&lt;br&gt;Hybrid search over keywords and meaning, then reranking" vertex="1">
+          <mxGeometry height="80" width="200" x="250" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l1b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Finds the paragraph about the film, which names the director" vertex="1">
+          <mxGeometry height="80" width="200" x="500" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l1c" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Misses the paragraph about the director&#39;s birthplace, which shares neither words nor meaning with the question" vertex="1">
+          <mxGeometry height="80" width="230" x="750" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l2a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="GraphRAG&lt;br&gt;A language model extracts entities and links from every fragment" vertex="1">
+          <mxGeometry height="80" width="200" x="250" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="l2b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Follows links:&lt;br&gt;Inception → directed by → Nolan → born in → London" vertex="1">
+          <mxGeometry height="80" width="200" x="500" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="l2c" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Finds both paragraphs, but the model must read the whole collection, and again after every update" vertex="1">
+          <mxGeometry height="80" width="230" x="750" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="l3a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Selective graph&lt;br&gt;Build the graph for only part of the fragments" vertex="1">
+          <mxGeometry height="80" width="200" x="250" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="l3b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="Which part?&lt;br&gt;KET-RAG: the most central fragments in a similarity graph" vertex="1">
+          <mxGeometry height="80" width="200" x="500" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="l3c" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;" value="My research question&lt;br&gt;Predict, before extraction, which fragments give links that future questions need" vertex="1">
+          <mxGeometry height="80" width="230" x="750" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="q" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="l1a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="q" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l2a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="l1a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l1b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="l1b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l1c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="l2a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="l2b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l2c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="l2a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;fontSize=12;labelBackgroundColor=#ffffff;" target="l3a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="l3a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l3b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="l3b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="l3c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

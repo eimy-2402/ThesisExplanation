@@ -1,0 +1,64 @@
+<h2 class="font-bold mb-2">KET-RAG</h2>
+<p>
+  KET-RAG builds the expensive graph for only part of the collection, and this is the method I plan
+  to improve.
+</p>
+<p>
+  First, KET-RAG chooses the “core” chunks. To do this, it builds a similarity graph in which each
+  chunk is linked to the chunks most similar to it. Half of these neighbours are found through
+  shared keywords and the other half through similar meaning, which is measured with text
+  embeddings. It then ranks every chunk with PageRank, a centrality score under which a chunk ranks
+  high when other high-ranking chunks link to it. The chunks with the highest scores become the
+  core, and the share of chunks that goes into the core, called β, is fixed in advance.
+</p>
+<p>
+  Only the core chunks are sent to the LLM, which extracts entities and relations from them in the
+  same way as GraphRAG. The result is called a “knowledge graph skeleton”. In addition, KET-RAG
+  builds a cheap keyword graph for all chunks, in which each chunk is linked to the words it
+  contains, except stop words. This graph does not need an LLM at all. When a question arrives, part
+  of the context comes from local search on the skeleton and part comes from chunks linked to
+  keywords that are similar to the question, and the two parts are then joined together.
+</p>
+<p>
+  This makes indexing cheaper, because the LLM reads fewer chunks, while the keyword graph still
+  covers the whole collection. By default, 80% of the chunks are core, which means β = 0.8. The
+  authors report about 20% lower indexing cost, together with answers that are up to 32.4% better.
+</p>
+<p>
+  However, centrality only shows that a chunk is well connected to other similar chunks. It does not
+  show whether questions will actually need the links extracted from that chunk. For this reason, I
+  plan to keep the overall KET-RAG approach but change the rule that decides which chunks get a
+  graph, as the table below shows.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>KET-RAG</th>
+      <th>What I plan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Which chunks get a graph</th>
+      <td>PageRank centrality in the similarity graph of chunks</td>
+      <td>How useful the chunk is predicted to be for graph search</td>
+    </tr>
+    <tr>
+      <th>What the rule learns from</th>
+      <td>Nothing, because it is a fixed formula</td>
+      <td>
+        How much graph search improves on the same search without a graph, measured on a sample of
+        questions
+      </td>
+    </tr>
+    <tr>
+      <th>What it knows about the chunk</th>
+      <td>Its links in the similarity graph</td>
+      <td>
+        Things known before extraction, such as how many names it contains, how similar it is to
+        neighbouring chunks and where it sits in the similarity graph
+      </td>
+    </tr>
+  </tbody>
+</table>

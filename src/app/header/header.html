@@ -1,0 +1,26 @@
+<header class="flex flex-row navbar bg-base-200 shadow-sm">
+  <nav class="flex-1" id="navigation-menu">
+    <ul class="flex flex-row justify-center gap-10">
+      <li><a class="hover:text-primary transition" routerLink="idea">Idea</a></li>
+      <li>
+        <a class="hover:text-primary transition" routerLink="alternatives">Main alternatives</a>
+      </li>
+      <li>
+        <a class="hover:text-primary transition" routerLink="rag-vs-graph-rag">RAG vs GraphRAG</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="flex flex-wrap items-center justify-center gap-12" id="settings">
+    <label class="swap swap-rotate btn btn-ghost btn-circle" aria-label="Dark mode">
+      <input (click)="changeTheme()" type="checkbox" />
+      @if (store.theme() === Theme.Light) {
+        <span class="icon-[tabler--sun] size-6"></span>
+      } @else if (store.theme() === Theme.Dark) {
+        <span class="icon-[tabler--moon] size-6"></span>
+      }
+    </label>
+  </div>
+  <div>
+    <app-settings></app-settings>
+  </div>
+</header>

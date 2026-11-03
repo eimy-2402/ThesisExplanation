@@ -1,0 +1,31 @@
+<h2 class="font-bold mb-2">Why we need it</h2>
+<p>
+  A language model only knows what it saw during training. RAG gives it the relevant text at the
+  moment the question is asked, and this helps in four ways.
+</p>
+<ul>
+  <li>
+    <b>Knowledge goes stale.</b> A model stops learning when its training ends, so it knows nothing
+    that was written afterwards. RAG can search documents that are newer than the model, which keeps
+    its answers current.
+  </li>
+  <li>
+    <b>The model has never seen private files.</b> A company’s internal documents were never part of
+    the training data, so the model cannot know what they say. RAG passes the model the relevant
+    parts of these documents whenever a question comes in.
+  </li>
+  <li>
+    <b>No retraining is needed.</b> Because the knowledge lives in the documents rather than in the
+    model, adding or correcting a fact only means updating the documents, while the model itself
+    stays the same.
+  </li>
+  <li>
+    <b>Answers can show their sources.</b> Since the answer is written from known chunks, the system
+    can show which documents it used. Without the search step, a model cannot reliably tell where a
+    fact came from.
+  </li>
+</ul>
+<p>
+  However, RAG does not guarantee correct answers. If the search misses the paragraph that contains
+  the answer, the model never sees it and has to answer without it.
+</p>

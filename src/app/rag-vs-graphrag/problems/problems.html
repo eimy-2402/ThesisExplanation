@@ -1,0 +1,39 @@
+<h2 class="font-bold mb-2">Where basic RAG breaks</h2>
+<p>
+  The paragraph that the answer needs can be lost at any step of this process. The table below describes three common
+  ways in which this happens.
+</p>
+<table>
+  <thead>
+    <tr><th>Problem</th><th>What happens</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>The needed paragraph does not look like the question</th>
+      <td>
+        Consider the question “Where was the director of the film Inception born?” The paragraph that says where the
+        director was born is about the director as a person and never mentions the film, so it has little in common with
+        the question. It only becomes clear what to search for once a first search has revealed who the director is.
+      </td>
+    </tr>
+    <tr>
+      <th>Chunk boundaries</th>
+      <td>
+        Cutting a document into chunks can separate a sentence from its context. For example, a chunk saying that revenue
+        grew by 3% may not say which company it refers to.
+      </td>
+    </tr>
+    <tr>
+      <th>Limited context</th>
+      <td>
+        Only k chunks reach the model, so anything ranked lower is lost. Moreover, models make worse use of the middle of
+        a long input than of its beginning or end, so even a chunk that reaches the model may have little effect on the
+        answer.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  My pilot shows how early in the process this can go wrong. Out of the 488 paragraphs that were needed, 112 were not
+  even among the 30 candidates that reached the reranker, so no later step could bring them back.
+</p>

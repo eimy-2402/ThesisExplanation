@@ -1,0 +1,79 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram id="alternatives" name="Alternatives">
+    <mxGraphModel background="#ffffff" dx="-579" dy="-162" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="1120" pageHeight="610" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="All text chunks" vertex="1">
+          <mxGeometry height="60" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;dashed=1;strokeColor=#000000;" value="A language model reads every chunk and extracts entities and relations" vertex="1">
+          <mxGeometry height="80" width="240" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Entity graph, split into communities at several levels (Leiden method)" vertex="1">
+          <mxGeometry height="80" width="240" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="L4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;dashed=1;strokeColor=#000000;" value="A language model writes a report for every community" vertex="1">
+          <mxGeometry height="80" width="240" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="L5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Search&lt;br&gt;local (from entities) or global (over community reports)" vertex="1">
+          <mxGeometry height="80" width="240" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="R1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="All text chunks" vertex="1">
+          <mxGeometry height="60" width="240" x="480" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="R2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Similarity graph of chunks (shared keywords + meaning); rank chunks by PageRank" vertex="1">
+          <mxGeometry height="80" width="240" x="480" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="R3a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Core chunks&lt;br&gt;the top share β, fixed in advance" vertex="1">
+          <mxGeometry height="80" width="220" x="640" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="R3b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Keyword graph for all chunks: chunk – words it contains (no language model)" vertex="1">
+          <mxGeometry height="80" width="220" x="330" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="R4a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;dashed=1;strokeColor=#000000;" value="A language model extracts entities and relations from core chunks only → graph skeleton" vertex="1">
+          <mxGeometry height="80" width="220" x="640" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="R5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="Search both&lt;br&gt;local search on the skeleton + chunks linked to the question’s keywords, joined" vertex="1">
+          <mxGeometry height="80" width="520" x="340" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="T" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffffff;strokeColor=#000000;" value="My plan&lt;br&gt;choose core chunks by predicted usefulness instead of PageRank" vertex="1">
+          <mxGeometry height="80" width="210" x="900" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="L1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="L2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="L2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="L3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="L3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="L4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="L4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="L5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="R1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="R2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="R1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="R3b" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="R2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="R3a" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="R3a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" target="R4a" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="R3b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.1923;entryY=0;entryDx=0;entryDy=0;" target="R5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="R4a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.7885;entryY=0;entryDx=0;entryDy=0;" target="R5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="T" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="R2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

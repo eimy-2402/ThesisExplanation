@@ -1,0 +1,49 @@
+<h2 class="font-bold mb-2">Current state of research</h2>
+<p>
+  The existing work in this area falls into four directions. For each of them, the table below shows what is already
+  known and what remains open for my research. The methods themselves are described in the Main alternatives tab.
+</p>
+<table>
+  <thead>
+    <tr><th>Direction</th><th>What is known</th><th>What is open</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>RAG vs GraphRAG</th>
+      <td>Whether a graph helps depends on the dataset and on the type of question.</td>
+      <td>
+        Studies compare whole systems, so they measure the total difference between them, but they cannot show how much
+        of it comes from the graph links themselves.
+      </td>
+    </tr>
+    <tr>
+      <th>How found facts are presented</th>
+      <td>
+        The same facts can lead to a different answer depending on whether they are given as text or as a graph, and
+        this effect varies with the model and the data. When facts have to be combined, the order of the paragraphs can
+        matter as well.
+      </td>
+      <td>It is still unclear how much of the effect comes from format and order and how much comes from the graph.</td>
+    </tr>
+    <tr>
+      <th>Multi-hop retrieval</th>
+      <td>
+        QASA walks through a Neo4j graph and follows the links that fit the question. IRCoT reaches the same facts
+        without a graph, because it searches, reasons about what it has found and then searches again.
+      </td>
+      <td>It is not yet clear how much the graph links add beyond what one gets by simply searching again.</td>
+    </tr>
+    <tr>
+      <th>Selective graph indexing</th>
+      <td>
+        KET-RAG builds the graph for a fixed share of the pieces of text, and it picks them by how central they are in a
+        similarity graph. The quality of such a graph can be checked by whether it actually contains the chains of facts
+        that the answers need.
+      </td>
+      <td>
+        It is not known whether picking pieces by how useful they turned out to be still works when new questions are
+        asked.
+      </td>
+    </tr>
+  </tbody>
+</table>

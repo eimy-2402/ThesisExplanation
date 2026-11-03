@@ -1,0 +1,53 @@
+<h2 class="font-bold mb-2">Microsoft GraphRAG</h2>
+<p>
+  Microsoft GraphRAG builds a graph of the whole document collection. First it cuts the documents
+  into text chunks. Then LLM, reads every chunk and writes down the entities it mentions, such as
+  people, places and organisations, together with the relations between them and a short description
+  of each. Entities that have the same name are merged into one node, so that facts about the same
+  thing from different chunks end up in one place.
+</p>
+<p>
+  Next, GraphRAG splits the graph into communities, which are groups of entities that are tightly
+  linked to each other. Result has several levels, from large groups down to small ones. Finally,
+  the LLM writes a short report for every community, starting with the smallest ones.
+</p>
+<p>The official tool offers several ways to search the graph.</p>
+<ul>
+  <li>
+    <b>Local search</b> finds the entities whose descriptions are similar to the question and
+    collects their neighbours, their relations, the reports of their communities and the original
+    chunks they came from. All of this is put into one prompt for the LLM. This works well for
+    questions about specific things.
+  </li>
+  <li>
+    <b>Global search</b> lets the LLM answer the question from each batch of community reports
+    separately and score how important each point of that answer is. The most important points are
+    then merged into one final answer, in a MapReduce kind of appraoch. This works well for
+    questions about the whole collection, whereas information is widespread in the documents”
+  </li>
+  <li>
+    <b>DRIFT search</b> is a version of local search that also uses information about communities.
+    Basic search is a plain vector search over the text chunks that does not use the graph at all.
+  </li>
+</ul>
+<p>
+  GraphRAG was designed for questions about a whole collection, which plain RAG cannot handle
+  because the answer is spread across the collection rather than contained in a few chunks. On such
+  questions, over collections of about a million tokens, its answers were more complete and more
+  varied than those of plain RAG. On other kinds of questions, however, whether it helps depends on
+  the data and on the type of question.
+</p>
+<p>
+  The downside is the cost of indexing. Before the first question can be answered, the LLM has to
+  read every chunk and write every community report, and the developers themselves warn that this
+  can become expensive. The cost also comes back whenever documents are added or changed, because
+  the new text has to go through the LLM again and the community reports have to be updated. The
+  tool provides an update command for this. Selective indexing tries to reduce exactly this cost.
+</p>
+<figure>
+  <img
+    class="bg-white"
+    src="diagrams/alternatives.svg"
+    alt="Indexing steps of GraphRAG and KET-RAG"
+  />
+</figure>

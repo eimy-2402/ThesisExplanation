@@ -1,0 +1,38 @@
+<h2 class="font-bold mb-2">Overall problem</h2>
+<p>
+  LLM knowledge is restricted to the public information available at the moment of training. If a
+  company wants the model to work effectively with private data, it has to somehow show and explain
+  this data to the model. One way to do that is RAG - retrieval-augmented generation - which
+  searches the documents first, hands the best pieces to the model, and lets it write the answer
+  from them.
+</p>
+<p>
+  There is a problem with RAG when it comes to multi-hop questions, which are questions that need
+  facts from two or more documents. Take the question "Where was the director of Inception born?"
+  The search easily finds the document about the film, because it shares a lot of words with the
+  question, and from that document we learn that the director is Christopher Nolan. The fact we
+  actually need, his birthplace, is in a different document about Nolan himself. That document never
+  mentions Inception, so it shares neither the key words nor the meaning of the question. Hybrid
+  search, which combines keyword search with meaning-based search and then reranks the results,
+  therefore scores it low and can easily miss it.
+</p>
+<p>
+  GraphRAG tries to solve this by building a graph of the people, places and other things mentioned
+  in the documents, together with the links between them. Once the search finds the film, it can
+  follow the link from the film to its director and from the director to his birthplace, and in this
+  way it reaches the second document. The downside is cost. A language model has to read every
+  document to build the graph, and it has to read the changed ones again whenever the collection is
+  updated. On top of that, studies show that whether the graph actually helps depends on the data
+  and on the type of question.
+</p>
+<p>
+  KET-RAG reduces this cost by building the graph for only part of the documents. It picks the
+  pieces of text that are most central, meaning the ones most strongly connected to other similar
+  pieces. However, being central does not guarantee that a piece will be useful for answering
+  questions. My research looks for properties of a piece of text that can be measured before any
+  links are extracted from it and that predict whether those links will be needed for questions
+  nobody has asked yet.
+</p>
+<figure>
+  <img class="bg-white" src="diagrams/overall-problem.svg" alt="overall problem diagram" />
+</figure>

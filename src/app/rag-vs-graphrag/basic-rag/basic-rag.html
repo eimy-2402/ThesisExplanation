@@ -1,0 +1,39 @@
+<h2 class="font-bold mb-2">Basic RAG</h2>
+<p>
+  Basic RAG consists of five steps. The first two steps, together called indexing, are done once in
+  advance, while steps 3 to 5 are repeated for every question.
+</p>
+<ol>
+  <li>
+    <b>Split into chunks.</b> The documents are cut into short chunks. The study in the last section
+    uses chunks of about 256 tokens, where a token is a word or a piece of a word. In my pilot, each
+    chunk was one Wikipedia paragraph.
+  </li>
+  <li>
+    <b>Index.</b> Each chunk is stored twice, once in a keyword index and once as an embedding in a
+    vector index, so that it can be found both by its words and by its meaning.
+  </li>
+  <li>
+    <b>Hybrid search.</b> When a question arrives, both indexes are searched, the two result lists
+    are merged, and a reranker puts the most relevant chunks on top. The k best chunks are kept.
+  </li>
+  <li>
+    <b>Pass to the model.</b> The question and the top-k chunks are put together into one prompt for
+    the language model.
+  </li>
+  <li><b>Generate.</b> The model writes the answer based on those chunks.</li>
+</ol>
+<p>
+  The search in step 3 combines two different searches. The keyword search uses BM25, short for Best
+  Matching 25, which is a classic scoring formula. It gives a chunk a higher score when the chunk
+  contains more of the question’s words, and especially when those words are rare. The vector search
+  compares embeddings instead, so it also finds chunks that express the same idea in other words.
+</p>
+<p>
+  After that, a reranker model reads the question together with each candidate chunk and estimates
+  how likely it is that the chunk is relevant, and the candidates are sorted by this estimate. A
+  well-known early setup of this kind used BERT to rerank passages that BM25 had found.
+</p>
+<figure>
+  <img class="bg-white" src="diagrams/rag-vs-graphrag.svg" alt="Hybrid RAG approach" />
+</figure>

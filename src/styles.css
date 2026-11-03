@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@plugin 'daisyui';
+@plugin '@iconify/tailwind4';
+@plugin '@tailwindcss/typography';
+
+option::checkmark {
+  display: none;
+}
+
+main.prose {
+  font-size: inherit;
+}
